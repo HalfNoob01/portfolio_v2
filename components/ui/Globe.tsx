@@ -91,12 +91,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     ...globeConfig,
   };
 
-  useEffect(() => {
-    if (globeRef.current) {
-      _buildData();
-      _buildMaterial();
-    }
-  }, [globeRef.current]);
+
 
   const _buildMaterial = () => {
     if (!globeRef.current) return;
@@ -217,7 +212,12 @@ export function Globe({ globeConfig, data }: WorldProps) {
         globeData.filter((d, i) => numbersOfRings.includes(i))
       );
     }, 2000);
-
+    useEffect(() => {
+      if (globeRef.current) {
+        _buildData();
+        _buildMaterial();
+      }
+    }, [globeRef.current,_buildData,_buildMaterial]);
     return () => {
       clearInterval(interval);
     };
